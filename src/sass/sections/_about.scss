@@ -1,3 +1,19 @@
+#contactLink{
+  text-align: right;
+  margin-right: 30px;
+  background-color: rgba(154, 224, 236, 0);
+  border: 2px solid rgb(29, 173, 184);
+  border-radius: 30px;
+  font-size: 5 rem;
+}
+
+.fixedToRight{
+  position: fixed;
+  right: 20px; /* Adjust this value as needed */
+  top: 20px; /* Adjust this value as needed */
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
 #about {
   background-color: $primary-color;
   background-image: linear-gradient(
