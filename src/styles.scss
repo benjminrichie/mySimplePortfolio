@@ -23,3 +23,55 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+// Add to _projects.scss or create a new partial
+.private-project-overlay {
+    background: rgba(0, 113, 188, 0.9); // Using a standard blue color
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px; // Using a standard border radius
+    
+    i {
+      color: #fff; // Using standard white
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      color: #fff;
+      font-size: 1.5rem;
+      margin: 0;
+      text-align: center;
+      padding: 0 1rem;
+      
+      &.subtitle {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        opacity: 0.9;
+      }
+    }
+  }
+  
+  #private-project {
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 1rem 0;
+      
+      li {
+        margin: 0.75rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+        
+        &:before {
+          content: "•";
+          color: #0071bc; // Using standard blue color
+          position: absolute;
+          left: 0;
+        }
+      }
+    }
+  }
