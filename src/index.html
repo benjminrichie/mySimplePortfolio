@@ -1,460 +1,1120 @@
 <!DOCTYPE html>
-<html lang="en" class="sr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="shortcut icon" type="image/png" href="Ben.png" />
-  <script defer src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benjamin Richard | Software Engineer</title>
+    <meta name="description" content="Benjamin Richard - Innovative Software Engineer crafting digital experiences">
+    <link rel="shortcut icon" type="image/png" href="Ben.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #00f5ff;
+            --secondary-color: #ff0080;
+            --accent-color: #7c3aed;
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #131318;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --gradient-1: linear-gradient(135deg, #00f5ff 0%, #7c3aed 100%);
+            --gradient-2: linear-gradient(135deg, #ff0080 0%, #ff6b35 100%);
+            --gradient-3: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border-glow: 0 0 20px rgba(0, 245, 255, 0.3);
+            --shadow-neon: 0 0 30px rgba(0, 245, 255, 0.2);
+        }
 
-  <!-- Todo: put here your site title -->
-  <title>benjminrichie | Software Engineer</title>
-  <!-- Todo: add some coding keywords below - e.g: (javascript, yourusername, etc) -->
-  <meta name="Benjamin" content="benjminrichie, Benjamin Richard, HTML, CSS, javascript" />
-  <!-- Todo: improve your SEO by adding a small description of you -->
-  <meta name="Benjamin Richard" content="Benjamin Richard | Developer" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="styles.scss" />
-  <link rel="stylesheet" href="customStyle.css" />
-  <script defer src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+        html {
+            scroll-behavior: smooth;
+        }
 
-  <!-- Todo: remove the below script once you finish your portfolio -->
-  <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-  <style>
-    .visitor-counter {
-      font-family: Arial, sans-serif;
-      padding: 10px;
-      background-color: #f0f0f0;
-      color: purple;
-      border-radius: 5px;
-      display: inline-block;
-      margin: 10px;
-    }
-  </style>
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--bg-primary);
+        }
 
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 128, 0.05) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: rgba(19, 19, 24, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-neon);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Sections */
+        .section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: var(--border-glow);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .project-link.primary {
+            background: var(--gradient-1);
+            border: none;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            background: var(--gradient-2);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .visitor-counter {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25d366;
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .loaded {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                top: 1rem;
+                right: 1rem;
+                left: 1rem;
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        /* Cursor Trail Effect */
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.8;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-1);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+    </style>
 </head>
-
-<!-- Todo: read the following HTML Todos to create your stunning portfolio website -->
-
 <body>
-  <div id="top"></div>
+    <div class="bg-animation"></div>
+    <div class="scroll-indicator"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#hero" class="nav-item active">Home</a>
+        <a href="#about" class="nav-item">About</a>
+        <a href="#projects" class="nav-item">Projects</a>
+        <a href="#contact" class="nav-item">Contact</a>
+    </nav>
 
-  <!-- **** Hero Section **** -->
-  <!-- contact me -->
-  <p id="contactLink" class="hero-cta load-hidden fixedToRight">
-    <a id="navContact" rel="noreferrer" class="cta-btn" href="#contact">Contact me</a>
-  </p>
-  <section id="hero" class="jumbotron">
-    <div class="container">
-      <!-- <div class="video-background">
-          <video autoplay muted loop class="background-video">
-            <source src="./assets/code.mp4" type="video/mp4">
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content loading">
+            <h1 class="hero-title">
+                Hi, I'm <span class="gradient-text">Benjamin Richard</span>
+            </h1>
+            <p class="hero-subtitle">&lt; Software Engineer /&gt;</p>
+            <p class="hero-description">
+                Crafting innovative digital solutions with cutting-edge technology. 
+                Passionate about creating seamless user experiences and solving complex problems through code.
+            </p>
+            <a href="#about" class="cta-button">
+                <span>Discover My Work</span>
+                <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title loading">About Me</h2>
+        <div class="about-grid">
+            <div class="about-image loading">
+                <img src="assets/Ben.png" alt="Benjamin Richard" />
+            </div>
+            <div class="loading">
+                <p class="about-text">
+                    I'm a skilled software engineer with a passion for developing innovative solutions that push the boundaries of what's possible. With expertise in modern web technologies and a keen eye for detail, I transform complex problems into elegant, user-friendly applications.
+                </p>
+                <p class="about-text">
+                    My journey in software engineering is driven by curiosity and a commitment to continuous learning. I thrive on challenges and enjoy collaborating with teams to deliver high-quality products that make a real impact.
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">React</div>
+                    <div class="skill-item">Next JS</div>
+                    <div class="skill-item">Express JS</div>
+                    <div class="skill-item">Node.js</div>
+                    <div class="skill-item">HTML/CSS</div>
+                    <div class="skill-item">Tailwind CSS</div>
+                    <div class="skill-item">Git</div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <a href="assets/BENJAMIN.pdf" class="cta-button" target="_blank">
+                        <i class="fas fa-download"></i>
+                        <span>Download Resume</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title loading">Featured Projects</h2>
+        <div class="projects-grid">
+          <!-- GIST YARD -->
+            <div class="project-card loading">
+                <h3 class="project-title">GistYard</h3>
+                <p class="project-description">
+                    GistYard is a Next JS fullstack news platform that aggregates news from various sources, providing users with a seamless experience to stay updated on current events. It features a user-friendly interface, real-time updates, and a robust backend for efficient data management. 
+                </p>
+                <div class="project-links">
+                    <a href="https://www.gistyard.com.ng/" class="project-link primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="#" class="project-link">
+                        <i class="fas fa-lock"></i> Private
+                    </a>
+                </div>
+            </div>
+
+            <!-- ABIA PORTAL -->
+            <div class="project-card loading">
+                <h3 class="project-title">School Management Portal</h3>
+                <p class="project-description">
+                    Comprehensive educational management system for Abia State schools with student result checking, admin dashboard, and secure authentication.
+                </p>
+                <div class="project-links">
+                    <a href="https://www.abiaunifyportal.com.ng/" class="project-link primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="#" class="project-link">
+                        <i class="fas fa-lock"></i> Private
+                    </a>
+                </div>
+            </div>
+
+          <!-- SWIFT ORDER -->
+            <div class="project-card loading">
+                <h3 class="project-title">SwiftOrder</h3>
+                <p class="project-description">
+                    A comprehensive food ordering platform that streamlines the entire process from ordering to delivery. Built to solve real-world inefficiencies in food service management.
+                </p>
+                <div class="project-links">
+                    <a href="https://swiftorder.vercel.app/" class="project-link primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="https://github.com/benjminrichie/alx-SwiftOrder_App" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> Source
+                    </a>
+                </div>
+            </div>
+
+            <!-- STREAM -->
+            <div class="project-card loading">
+                <h3 class="project-title">Stream</h3>
+                <p class="project-description">
+                    A modern movie discovery application powered by TMDB API. Features movie search, detailed information, and trailer viewing with a sleek, responsive interface.
+                </p>
+                <div class="project-links">
+                    <a href="https://alx-stream-app.onrender.com/" class="project-link primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="https://github.com/benjminrichie/alx-Stream_App" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> Source
+                    </a>
+                </div>
+            </div>
+
+            <!-- AVID STUDIOS -->
+            <div class="project-card loading">
+                <h3 class="project-title">Avid Studios</h3>
+                <p class="project-description">
+                    Professional videography platform featuring admin management, client booking system, and portfolio showcase. Complete solution for creative service businesses.
+                </p>
+                <div class="project-links">
+                    <a href="https://photography-4.onrender.com/" class="project-link primary" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="#" class="project-link">
+                        <i class="fas fa-lock"></i> Private
+                    </a>
+                </div>
+            </div>
+
             
-          </video> -->
-
-      <h1 class="hero-title load-hidden">
-        Hi, my name is <span class="text-color-main">Benjamin Richard</span>
-        <br />
-        I'm a Software Engineer.
-      </h1>
-      <p class="hero-cta load-hidden">
-        <a rel="noreferrer" class="cta-btn cta-btn--hero" href="#about">Know more</a>
-      </p>
-    </div>
-  </section>
-  <!-- /END Hero Section -->
-
-  <!-- **** About Section **** -->
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title load-hidden">About me</h2>
-      <div class="row about-wrapper">
-        <div class="col-md-6 col-sm-12">
-          <div class="about-wrapper__image load-hidden">
-            <img alt="Profile Image" class="img-fluid rounded shadow-lg" height="auto" width="300px"
-              src="assets/Ben.png" alt="Profile Image" />
-          </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-          <div class="about-wrapper__info load-hidden">
-            <p class="about-wrapper__info-text">
-              I am a skilled software engineer known for my expertise in developing innovative solutions.
-              With a keen eye for detail and a passion for problem-solving. I consistently deliver high-quality
-              code and contribute to the success of any project(s) i am involved in. My strong analytical skills
-              and commitment to staying updated with the latest technologies make me a valuable asset to any team.
-              Outside of coding, i enjoy exploring new programming languages and sharing my knowledge with fellow
-              developers. With my dedication and creativity, I continually strive to push the boundaries of what
-              is possible in the world of software engineering.
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title loading">Let's Connect</h2>
+        <div class="contact-content loading">
+            <p class="hero-description">
+                Ready to bring your ideas to life? Let's discuss how we can work together to create something amazing.
             </p>
-            <p class="about-wrapper__info-text">
-
-            </p>
-            <span class="d-flex mt-3">
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--resume" href="assets/BENJAMIN.pdf">
-                View Resume
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- /END About Section -->
-
-  <!-- **** Projects Section **** -->
-  <section id="projects">
-    <div class="container">
-      <div class="project-wrapper">
-        <h2 class="section-title dark-blue-text">Projects</h2>
-
-
-
-
-        <!-- Notice: each .row is a project -->
-        <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">SwiftOrder</h3>
-              <div>
-                <p class="mb-4">
-                  The SwiftOrder App was inspired by a shared frustration
-                  experienced by the three of us, Benjamin, Destiny and Robert,
-                  during our busy workdays. We frequently struggled with the
-                  inefficiencies of ordering food, from miscommunications to
-                  delivery delays. Destiny, a restaurant owner we know, also
-                  highlighted the challenges of managing orders effectively.
-                  This project, a Portfolio Project for Holberton School, aims
-                  to streamline the food ordering process for users and improve
-                  order management for restaurants. Learn more about Holberton
-                  School <span id='mySpan'><a href='https://www.holbertonschool.com/'>here.</a></span>
-                </p>
-              </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero" href="https://swiftorder.vercel.app/">
-                See Live
-              </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main"
-                href="https://github.com/benjminrichie/alx-SwiftOrder_App">
-                Source Code
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-8 col-sm-12">
-            <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="#!" target="_blank">
-                <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
-                  class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="assets/swiftOrder.png" />
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>07081868797</span>
                 </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- Notice: each .row is a project -->
-        <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">Stream</h3>
-              <div>
-                <p class="mb-4">
-                  Stream is a web application that fetches data from the The Movie DataBase (TMDB).
-                  It allows users to search for movies, view movie details and watch movie trailers
-                  This project, a Portfolio Project for Holberton School. Learn more about Holberton
-                  School <span id='mySpan'><a href='https://www.holbertonschool.com/'>here.</a></span>
-                </p>
-              </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero"
-                href="https://alx-stream-app.onrender.com/">
-                See Live
-              </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main"
-                href="https://github.com/benjminrichie/alx-Stream_App">
-                Source Code
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-8 col-sm-12">
-            <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="#!" target="_blank">
-                <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
-                  class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="assets/alxStream.png" />
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:benjminrichie@email.com" style="color: inherit; text-decoration: none;">
+                        benjminrichie@email.com
+                    </a>
                 </div>
-              </a>
             </div>
-          </div>
+            <a href="mailto:benjminrichie@email.com" class="cta-button">
+                <i class="fas fa-paper-plane"></i>
+                <span>Send Message</span>
+            </a>
         </div>
+    </section>
 
-        <!-- Notice: each .row is a project -->
-        <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">Avid Studios</h3>
-              <div>
-                <p class="mb-4">
-                  Avid studios is a videography web application. It has an admin panel and a client interface.
-                  The admin panel allows authenticated users(admin only) to manage upload of products/videos, review
-                  orders, view and reply messages.
-                  The client interface allows users to browse products, view product details, schedule or book an
-                  appointment with Avid studios, send messages for inquiry.
-                </p>
-              </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero"
-                href="https://photography-4.onrender.com/">
-                See Live
-              </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main" href="PermissionNotGranted.html">
-                Source Code
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-8 col-sm-12">
-            <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="#!" target="_blank">
-                <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
-                  class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="assets/Avid.png" />
-                </div>
-              </a>
-            </div>
-          </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://twitter.com/benjminrichie" class="social-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/benjminrichie/" class="social-link" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/benjminrichie" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
         </div>
-
-        <!-- Notice: each .row is a project -->
-        <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">Abia State School(s) Management Portal</h3>
-              <div>
-                <p class="mb-4">
-                  This is portal has an admin section and a student section for result checking.
-                  The admin section manages the entire portal but requires authentication.
-                  Only logged in users can access the admin panel.
-                  From the Landing page, students can also click on check results and
-                  enter their registration number and PIN. This then takes the student to
-                  his or her custom dashboard where they can check their annual or termly report.
-                </p>
-              </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero"
-                href="https://www.abiaunifyportal.com.ng/">
-                See Live
-              </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main" href="PermissionNotGranted.html">
-                Source Code
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-8 col-sm-12">
-            <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="#!" target="_blank">
-                <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
-                  class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="assets/Abia.png" />
-                </div>
-              </a>
-            </div>
-          </div>
+        
+        <div class="visitor-counter">
+            <i class="fas fa-eye"></i>
+            Visits: <span id="visitor-count">Loading...</span>
         </div>
+        
+        <p style="margin-top: 2rem; color: var(--text-secondary);">
+            © 2024 Benjamin Richard. Crafted with passion and code.
+        </p>
+    </footer>
 
-        <!-- Notice: each .row is a project -->
-        <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">Simple Calculator App</h3>
-              <div>
-                <p class="mb-4">
-                  The App is able to perform the basic arithmetic operatios such as
-                <ul>
-                  <li>Addition</li>
-                  <li>Subtraction</li>
-                  <li>Multiplication</li>
-                  <li>Division</li>
-                </ul>
-                </p>
-              </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero" href="#!">See Live
-              </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main"
-                href="https://github.com/benjminrichie">
-                Source Code
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-8 col-sm-12">
-            <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="#!" target="_blank">
-                <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
-                  class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="assets/calculatorApp.png" />
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- /END Project -->
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/+2347081868797" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-        <!-- Notice: each .row is a project -->
-        <div class="row">
-          <div class="col-lg-4 col-sm-12">
-            <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">To Do List</h3>
-              <div>
-                <p class="mb-4">
-                  This app allows you create a list of tasks you wish to accomplish.
-                  It provides the following functionalities
-                <ul>
-                  <li>Add a task to the list</li>
-                  <li>Remove a task from the list</li>
-                  <li>Strike out any task that has been accomplished</li>
-                </ul>
-                </p>
-              </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero" href="#!">
-                See Live
-              </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main"
-                href="https://github.com/benjminrichie">
-                Source Code
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-8 col-sm-12">
-            <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="#!" target="_blank">
-                <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
-                  class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="assets/todo3.png" />
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- /END Project -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBB4XvgEcjvauxtoZREBAoB56aSwoMIBwA",
+            authDomain: "analytic2-d9491.firebaseapp.com",
+            databaseURL: "https://analytic2-d9491-default-rtdb.firebaseio.com/",
+            projectId: "analytic2-d9491",
+            storageBucket: "analytic2-d9491.firebasestorage.app",
+            messagingSenderId: "1082085922292",
+            appId: "1:1082085922292:web:ff160ac05f619bfb4415a1",
+            measurementId: "G-306VNC2E9C"
+        };
 
-        <!-- /END Project -->
-      </div>
-    </div>
-  </section>
-  <!-- /END Projects Section -->
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const visitorCountRef = database.ref('visitorCount');
 
-  <!-- **** Contact Section **** -->
-  <section id="contact">
-    <div class="container">
-      <h2 class="section-title">Contact</h2>
-      <div class="contact-wrapper load-hidden">
-        <p class="contact-wrapper__text">07081868797</p>
-        <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--resume"
-          href="mailto:benjminrichie@email.com">Email</a>
-      </div>
-    </div>
-  </section>
-  <!-- /END Contact Section -->
+        // Visitor Counter
+        function updateVisitorCount() {
+            visitorCountRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            }).catch(error => {
+                console.error("Error updating visitor count:", error);
+                document.getElementById('visitor-count').textContent = "Error";
+            });
 
-  <!-- **** Footer Section **** -->
-  <footer class="footer navbar-static-bottom">
-    <div class="container">
-      <a rel="noreferrer" href="#top" class="back-to-top">
-        <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
-      </a>
-      <div class="social-links">
-        <a rel="noreferrer" href="https://twitter.com/benjminrichie" target="_blank">
-          <i class="fa fa-twitter fa-inverse"></i>
-        </a>
-        <a rel="noreferrer" href="https://www.linkedin.com/in/benjminrichie/" target="_blank">
-          <i class="fa fa-linkedin fa-inverse"></i>
-        </a>
-        <a rel="noreferrer" href="https://github.com/benjminrichie" target="_blank">
-          <i class="fa fa-github fa-inverse"></i>
-        </a>
-      </div>
+            visitorCountRef.on('value', (snapshot) => {
+                document.getElementById('visitor-count').textContent = snapshot.val() || 0;
+            }, (error) => {
+                console.error("Error reading visitor count:", error);
+                document.getElementById('visitor-count').textContent = "Error";
+            });
+        }
 
-      <hr />
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
 
-      <!-- Notice: if you want to give me some credit, it will be huge for me! if not, put your data on it -->
-      <p class="footer__text">
-        © 2024
-        <a rel="noreferrer" href="https://github.com/benjminrichie" target="_blank">benjminrichie</a>
-      </p>
+        // Loading Animation
+        window.addEventListener('load', () => {
+            const loadingElements = document.querySelectorAll('.loading');
+            
+            gsap.to(loadingElements, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
 
-      <!-- TO DO: remove this entire paragraph once you finish your portfolio -->
-      <p class="mt-3 pt-3">
-        <a rel="noreferrer" class="github-button" href="https://github.com/benjminrichie/mySimplePortfolio/fork"
-          data-icon="octicon-repo-forked" data-size="large" data-show-count="true"
-          aria-label="Fork ntkme/github-buttons on GitHub">Fork</a>
-        <a rel="noreferrer" class="github-button" href="https://github.com/benjminrichie/mySimplePortfolio"
-          data-icon="octicon-star" data-size="large" data-show-count="true"
-          aria-label="Star cobidev/simplefolio on GitHub">Star</a>
-      </p>
-
-      <a href="https://wa.me/+2347081868797" class="whatsapp-button" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-        Chat
-      </a>
-
-    </div>
-
-    <!-- Add this where you want to display the counter -->
-    <div class="visitor-counter visitor-div">
-      Visitors: <span id="visitor-count">Loading...</span>
-    </div>
-  </footer>
-  <!-- /END Footer Section -->
-
-
-
-
-  <!-- Firebase SDK -->
-  <!-- <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database-compat.js"></script>
-  
- Firebase SDK (with specific versions) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBB4XvgEcjvauxtoZREBAoB56aSwoMIBwA",
-      authDomain: "analytic2-d9491.firebaseapp.com",
-      databaseURL: "https://analytic2-d9491-default-rtdb.firebaseio.com/",
-      projectId: "analytic2-d9491",
-      storageBucket: "analytic2-d9491.firebasestorage.app",
-      messagingSenderId: "1082085922292",
-      appId: "1:1082085922292:web:ff160ac05f619bfb4415a1",
-      measurementId: "G-306VNC2E9C"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    const visitorCountRef = database.ref('visitorCount');
-
-    // Function to update visitor count
-    function updateVisitorCount() {
-        visitorCountRef.transaction((currentCount) => {
-            return (currentCount || 0) + 1;
-        }).catch(error => {
-            console.error("Error updating visitor count:", error);
-            document.getElementById('visitor-count').textContent = "Error loading count";
+            loadingElements.forEach(el => el.classList.add('loaded'));
+            updateVisitorCount();
         });
 
-        // Listen for count updates
-        visitorCountRef.on('value', (snapshot) => {
-            document.getElementById('visitor-count').textContent = snapshot.val() || 0;
-        }, (error) => {
-            console.error("Error reading visitor count:", error);
-            document.getElementById('visitor-count').textContent = "Error loading count";
+        // Scroll Animations
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.fromTo(card, 
+                { opacity: 0, y: 100 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    delay: i * 0.2,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
         });
-    }
 
-    // Update count when page loads
-    document.addEventListener('DOMContentLoaded', updateVisitorCount);
-  </script>
+        // Scroll Progress Indicator
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const maxHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrolled / maxHeight) * 100;
+            document.querySelector('.scroll-indicator').style.width = progress + '%';
+        });
 
-  <script defer type="module" src="index.js"></script>
+        // Navigation Active State
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth Scrolling for Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = item.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Cursor Trail Effect (Desktop only)
+        if (window.innerWidth > 768) {
+            const cursors = [];
+            const CURSOR_COUNT = 5;
+            
+            for (let i = 0; i < CURSOR_COUNT; i++) {
+                const cursor = document.createElement('div');
+                cursor.className = 'cursor-trail';
+                cursor.style.opacity = (1 - i * 0.2);
+                cursor.style.transform = `scale(${1 - i * 0.1})`;
+                document.body.appendChild(cursor);
+                cursors.push(cursor);
+            }
+
+            let mouseX = 0, mouseY = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function updateCursors() {
+                cursors.forEach((cursor, index) => {
+                    setTimeout(() => {
+                        cursor.style.left = mouseX + 'px';
+                        cursor.style.top = mouseY + 'px';
+                    }, index * 50);
+                });
+                requestAnimationFrame(updateCursors);
+            }
+            updateCursors();
+        }
+
+        // Parallax Effect for Hero Section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Typing Effect for Hero Subtitle
+        const typeText = (element, text, speed = 100) => {
+            let i = 0;
+            element.textContent = '';
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        };
+
+        // Initialize typing effect after page load
+        setTimeout(() => {
+            const subtitle = document.querySelector('.hero-subtitle');
+            if (subtitle) {
+                typeText(subtitle, '< Software Engineer />', 100);
+            }
+        }, 1000);
+
+        // Floating Animation for Skills
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach((item, index) => {
+            gsap.to(item, {
+                y: -10,
+                duration: 2,
+                delay: index * 0.2,
+                yoyo: true,
+                repeat: -1,
+                ease: "power2.inOut"
+            });
+        });
+
+        // Project Card Hover Effects
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.02,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add glitch effect to hero title on hover
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            heroTitle.addEventListener('mouseenter', () => {
+                heroTitle.style.animation = 'glitch 0.5s ease-in-out';
+            });
+
+            heroTitle.addEventListener('animationend', () => {
+                heroTitle.style.animation = '';
+            });
+        }
+
+        // Add CSS for glitch effect
+        const glitchCSS = `
+            @keyframes glitch {
+                0% { transform: translateX(0); }
+                20% { transform: translateX(-2px); }
+                40% { transform: translateX(2px); }
+                60% { transform: translateX(-2px); }
+                80% { transform: translateX(2px); }
+                100% { transform: translateX(0); }
+            }
+        `;
+        
+        const style = document.createElement('style');
+        style.textContent = glitchCSS;
+        document.head.appendChild(style);
+
+        // Preloader
+        const preloader = document.createElement('div');
+        preloader.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        `;
+        
+        const loader = document.createElement('div');
+        loader.style.cssText = `
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 245, 255, 0.3);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        `;
+        
+        const spinCSS = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        
+        const spinStyle = document.createElement('style');
+        spinStyle.textContent = spinCSS;
+        document.head.appendChild(spinStyle);
+        
+        preloader.appendChild(loader);
+        document.body.appendChild(preloader);
+
+        // Hide preloader when page is loaded
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.remove();
+                }, 500);
+            }, 1000);
+        });
+
+        // Add easter egg - Konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join('') === konamiSequence.join('')) {
+                // Easter egg activated!
+                document.body.style.animation = 'rainbow 2s linear infinite';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 5000);
+            }
+        });
+
+        // Rainbow animation for easter egg
+        const rainbowCSS = `
+            @keyframes rainbow {
+                0% { filter: hue-rotate(0deg); }
+                100% { filter: hue-rotate(360deg); }
+            }
+        `;
+        
+        const rainbowStyle = document.createElement('style');
+        rainbowStyle.textContent = rainbowCSS;
+        document.head.appendChild(rainbowStyle);
+
+        // Performance optimization - Lazy loading for images
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Console message for developers
+        console.log(`
+        ╔═══════════════════════════════════════╗
+        ║                                       ║
+        ║    Hey Developer! 👋                  ║
+        ║                                       ║
+        ║    Nice to see you checking out       ║
+        ║    the code! If you're interested     ║
+        ║    in collaborating, let's connect:   ║
+        ║                                       ║
+        ║    📧 benjminrichie@email.com         ║
+        ║    🔗 linkedin.com/in/benjminrichie   ║
+        ║                                       ║
+        ╚═══════════════════════════════════════╝
+        `);
+    </script>
 </body>
-
 </html>

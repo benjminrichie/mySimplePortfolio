@@ -22,8 +22,11 @@
   "homepage": "https://github.com/cobidev/simplefolio#readme",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
+    "autoprefixer": "^10.4.20",
     "parcel": "^2.7.0",
-    "prettier": "^2.7.1"
+    "postcss": "^8.5.3",
+    "prettier": "^2.7.1",
+    "tailwindcss": "^3.4.17"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
